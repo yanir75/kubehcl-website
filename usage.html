@@ -3,43 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KubeHCL</title>
+  <title>Usage | KubeHCL</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" type="image/png" href="assets/kubehcl-logo.png" />
 </head>
 <body>
   <div class="glow"></div>
 
-  <!-- SIDEBAR -->
   <nav class="sidebar">
     <div class="sidebar-header">
       <img src="assets/kubehcl-logo.png" alt="KubeHCL Logo" class="sidebar-logo" />
       <h2>KubeHCL</h2>
     </div>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="quickstart.html">Quickstart</a></li>
       <li><a href="installation.html">Installation</a></li>
-      <li><a href="usage.html">Usage</a></li>
+      <li><a href="usage.html" class="active">Usage</a></li>
       <li><a href="examples.html">Examples</a></li>
     </ul>
   </nav>
 
-  <!-- MAIN CONTENT -->
   <main class="content">
-    <header class="container hero">
-      <img src="assets/kubehcl-logo.png" alt="KubeHCL Logo" class="logo" />
-      <h1>Manage Kubernetes with HCL</h1>
-      <p class="tagline">A modern way to configure and control clusters efficiently.</p>
-      <a href="about.html" class="btn">Learn More</a>
-    </header>
+    <section class="section">
+      <h2>Usage</h2>
+      <p>Define your Kubernetes resources in HCL and let KubeHCL generate YAML automatically:</p>
+      <pre><code>
+kube_resource "foo" {
+  apiVersion = "v1"
+  kind       = "Namespace"
+  metadata = {
+    name = "foo"
+    labels = {
+      name = "bar"
+    }
+  }
+}
+      </code></pre>
+    </section>
 
     <footer>
-      <p>© 2025 KubeHCL — Open Source Kubernetes Configuration Tool</p>
+      <p>© 2025 KubeHCL</p>
     </footer>
   </main>
-
-  <script src="js/main.js"></script>
 </body>
 </html>
