@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fmt Command | KubeHCL</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section command-page">
+      <h2><code>fmt</code> Command</h2>
+
+      <p class="command-description">
+        The <strong>fmt</strong> command formats all files in the specified folder.  
+        It helps maintain a consistent structure and style across your configuration files.
+      </p>
+
+      <a href="commands.html" class="back-link">← Back to all commands</a>
+
+      <h3>Usage</h3>
+      <pre class="command-usage">kubehcl fmt [folder] [flags]</pre>
+
+      <h3>Flags</h3>
+      <ul class="command-flags">
+        <li><strong>-h, --help</strong> — Help for fmt.</li>
+        <li><strong>--no-color</strong> — Disable colored output.</li>
+        <li><strong>--recursive</strong> — Formats all the folders and subfolders</li>
+      </ul>
+
+<div w3-include-html="partials/global-flags.html"></div>
+      <script>
+        includeHTML();
+      </script>
+    </section>
+
+    <footer>
+      <p>© 2025 KubeHCL</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>install Command | KubeHCL</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section command-page">
+      <h2><code>install</code> Command</h2>
+
+      <p class="command-description">
+        The <strong>install</strong> command creates or updates existing resources managed by KubeHCL.  
+        It automatically searches for files ending with <code>.hcl</code> and applies them to your cluster.
+      </p>
+
+      <a href="commands.html" class="back-link">← Back to all commands</a>
+
+      <h3>Usage</h3>
+      <pre class="command-usage">kubehcl install [name] [folder] [flags]</pre>
+
+      <h3>Flags</h3>
+      <ul class="command-flags">
+        <li><strong>--create-namespace</strong> — Automatically create the namespace if it doesn’t exist.</li>
+        <li><strong>-h, --help</strong> — Help for install.</li>
+        <li><strong>--var strings</strong> — Set specific variable values (must include an "=" sign).</li>
+        <li><strong>--var-file string</strong> — Variables filename to load values (default "kubehcl.tfvars").</li>
+      </ul>
+
+<div w3-include-html="partials/global-flags.html"></div>
+      <script>
+        includeHTML();
+      </script>
+    </section>
+
+    <footer>
+      <p>© 2025 KubeHCL</p>
+    </footer>
+  </main>
+</body>
+</html>

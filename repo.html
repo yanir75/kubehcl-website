@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>repo Command | KubeHCL</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section command-page">
+      <h2><code>repo</code> Command</h2>
+
+      <p class="command-description">
+        The <strong>repo</strong> command provides the option to add, list, or remove repositories containing KubeHCL modules.
+      </p>
+
+      <a href="commands.html" class="back-link">← Back to all commands</a>
+
+      <h3>Usage</h3>
+      <pre class="command-usage">kubehcl repo [flags]
+kubehcl repo [command]</pre>
+
+      <h3>Available Commands</h3>
+      <ul class="command-flags">
+        <li><a href="repo-add.html"><strong>add</strong></a> — Add a repository of modules.</li>
+        <li><a href="repo-list.html"><strong>list</strong></a> — List all added repositories.</li>
+        <li><a href="repo-remove.html"><strong>remove</strong></a> — Remove a repository of modules.</li>
+      </ul>
+
+      <h3>Flags</h3>
+      <ul class="command-flags">
+        <li><strong>-h, --help</strong> — Help for repo.</li>
+      </ul>
+
+      <!-- Include global flags -->
+      <div w3-include-html="partials/global-flags.html"></div>
+      <script>
+        includeHTML();
+      </script>
+
+      <h3>Additional Help</h3>
+      <p>Use <code>kubehcl repo [command] --help</code> for more information about a specific subcommand.</p>
+    </section>
+
+    <footer>
+      <p>© 2025 KubeHCL</p>
+    </footer>
+  </main>
+</body>
+</html>

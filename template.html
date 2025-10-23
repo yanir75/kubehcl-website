@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>template Command | KubeHCL</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section command-page">
+      <h2><code>template</code> Command</h2>
+
+      <p class="command-description">
+        The <strong>template</strong> command converts HCL configuration files into YAML or JSON manifests.
+        This allows you to preview the Kubernetes resources that will be created in your environment before applying them.
+      </p>
+
+      <a href="commands.html" class="back-link">← Back to all commands</a>
+
+      <h3>Usage</h3>
+      <pre class="command-usage">kubehcl template [flags]</pre>
+
+      <h3>Flags</h3>
+      <ul class="command-flags">
+        <li><strong>-h, --help</strong> — Help for template.</li>
+        <li><strong>--kind string</strong> — Prints the template in YAML or JSON format (default "yaml").</li>
+        <li><strong>--var strings</strong> — Set a specific variable's value; must contain an equals sign.</li>
+        <li><strong>--var-file string</strong> — Vars filename to load values into variables (default "kubehcl.tfvars").</li>
+      </ul>
+
+      <!-- Reuse global flags partial -->
+      <div w3-include-html="partials/global-flags.html"></div>
+      <script>
+        includeHTML();
+      </script>
+    </section>
+
+    <footer>
+      <p>© 2025 KubeHCL</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pull Command | KubeHCL</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section command-page">
+      <h2><code>pull</code> Command</h2>
+
+      <p class="command-description">
+        The <strong>pull</strong> command downloads a module from a repository using the provided tag and name.  
+        The module must be a <code>.tar.gz</code> file, and KubeHCL will automatically create a folder for it locally.
+      </p>
+
+      <a href="commands.html" class="back-link">← Back to all commands</a>
+
+      <h3>Usage</h3>
+      <pre class="command-usage">kubehcl pull [REPO NAME] [TAG/NAME] [flags]</pre>
+
+      <h3>Flags</h3>
+      <ul class="command-flags">
+        <li><strong>-h, --help</strong> — Help for pull.</li>
+        <li><strong>--version string</strong> — Specify the module version to pull (usable only in repositories).</li>
+      </ul>
+
+      <!-- Reuse global flags partial -->
+      <div w3-include-html="partials/global-flags.html"></div>
+      <script>
+        includeHTML();
+      </script>
+    </section>
+
+    <footer>
+      <p>© 2025 KubeHCL</p>
+    </footer>
+  </main>
+</body>
+</html>

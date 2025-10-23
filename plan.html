@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>plan Command | KubeHCL</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section command-page">
+      <h2><code>plan</code> Command</h2>
+
+      <p class="command-description">
+        The <strong>plan</strong> command shows the differences between existing resources managed by KubeHCL and the desired configuration.
+        It automatically searches for files ending with <code>.hcl</code> and generates a change plan.
+      </p>
+
+      <a href="commands.html" class="back-link">← Back to all commands</a>
+
+      <h3>Usage</h3>
+      <pre class="command-usage">kubehcl plan [name] [folder] [flags]</pre>
+
+      <h3>Flags</h3>
+      <ul class="command-flags">
+        <li><strong>-h, --help</strong> — Help for plan.</li>
+        <li><strong>--var strings</strong> — Set a specific variable’s value (must include an equals sign).</li>
+        <li><strong>--var-file string</strong> — Vars filename to load variable values (default <code>kubehcl.tfvars</code>).</li>
+      </ul>
+
+<div w3-include-html="partials/global-flags.html"></div>
+      <script>
+        includeHTML();
+      </script>
+    </section>
+
+    <footer>
+      <p>© 2025 KubeHCL</p>
+    </footer>
+  </main>
+</body>
+</html>

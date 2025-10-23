@@ -17,6 +17,126 @@ body {
   overflow-x: hidden;
 }
 
+    .commands-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .commands-list li {
+      margin-bottom: 10px;
+    }
+
+    .command-link {
+      display: block;
+      text-decoration: none;
+      color: #4fc3f7;
+      font-weight: bold;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .command-link:hover {
+      background: rgba(255, 255, 255, 0.07);
+      transform: translateY(-1px);
+    }
+
+    .command-desc {
+      display: block;
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-top: 4px;
+      font-weight: normal;
+    }
+
+/* ----- Command Page Styles ----- */
+
+.command-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: #e0e0e0;
+}
+
+.command-page h2 {
+  font-size: 2rem;
+  color: #00eaff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.command-page h3 {
+  font-size: 1.3rem;
+  color: #66ffff;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.command-description {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  color: #ccc;
+}
+
+.command-usage {
+  background-color: #0f172a;
+  color: #00eaff;
+  padding: 1rem;
+  border-left: 4px solid #00eaff;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.command-flags {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0;
+}
+
+.command-flags li {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.command-flags li:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 3px solid #00eaff;
+}
+
+.command-flags strong {
+  color: #00eaff;
+  font-family: monospace;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: #00eaff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+    /* ----- Command Page Styles ----- */
+
+
+
+
+
 /* SIDEBAR */
 .sidebar {
   position: fixed;
@@ -227,3 +347,5 @@ footer {
     padding: 60px 20px;
   }
 }
+
+
