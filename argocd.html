@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Argo CD Integration | KubeHCL</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section">
+      <h1>Argo CD Integration</h1>
+
+      <p>
+        KubeHCL integrates seamlessly with <strong>Argo CD</strong> using a 
+        <code>ConfigManagementPlugin</code> (CMP). This lets Argo CD automatically
+        generate and synchronize Kubernetes manifests from HCL definitions in your Git repository.
+      </p>
+
+      <h2>1. Apply the KubeHCL Plugin Configuration</h2>
+      <p>
+        First, apply the KubeHCL ConfigMap that defines the plugin inside the Argo CD namespace.
+        This plugin enables Argo CD to execute <code>kubehcl</code> as a manifest generator.
+      </p>
+
+      <pre><code class="language-bash">
+kubectl apply -n argocd -f https://raw.githubusercontent.com/yanir75/kubehcl-repos/refs/heads/main/argocd/management_plugin.yaml
+      </code></pre>
+
+      <p>
+        If you are using a different namespace, replace <code>argocd</code> with your own:
+      </p>
+
+      <pre><code class="language-bash">
+kubectl apply -n &lt;namespace&gt; -f https://raw.githubusercontent.com/yanir75/kubehcl-repos/refs/heads/main/argocd/management_plugin.yaml
+      </code></pre>
+      <p></p>
+
+      <h2>2. Patch the Argo CD Repo Server</h2>
+      <p>
+        Next, patch the <code>argocd-repo-server</code> deployment to include the KubeHCL plugin container
+        and init container that downloads the <code>kubehcl</code> binary please replace the processor with the relevant processor for your cluster.
+        You can also create your own custom installation.
+      </p>
+
+      <pre><code class="language-yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+spec:
+  template:
+    spec:
+      volumes:
+        - name: kubehcl
+          configMap:
+            name: kubehcl
+        - name: cmp-tmp
+          emptyDir: {}
+        - name: custom-tools
+          emptyDir: {}
+        - name: var-files
+          emptyDir: {}
+        - name: plugins
+          emptyDir: {}
+
+      initContainers:
+        - name: download-tools
+          image: alpine:3.8
+          command: [sh, -c]
+          args:
+            - wget -qO- https://github.com/yanir75/kubehcl/releases/download/v0.3.4/kubehcl_0.3.4_linux_&lt;processor&gt;.tar.gz |
+              tar -xvzf - &&
+              mv kubehcl /custom-tools/
+          volumeMounts:
+            - mountPath: /custom-tools
+              name: custom-tools
+
+      containers:
+        - name: kubehcl
+          image: ubuntu:bionic
+          command: [/var/run/argocd/argocd-cmp-server]
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 999
+          volumeMounts:
+            - mountPath: /var/run/argocd
+              name: var-files
+            - mountPath: /home/argocd/cmp-server/plugins
+              name: plugins
+            - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+              subPath: plugin.yaml
+              name: kubehcl
+            - mountPath: /tmp
+              name: cmp-tmp
+            - mountPath: /usr/local/bin/kubehcl
+              name: custom-tools
+              subPath: kubehcl
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      </code></pre>
+
+      <p>
+        Save this file as <code>repo-server-patch.yaml</code> and apply it:
+      </p>
+
+      <pre><code class="language-bash">
+kubectl patch deployment argocd-repo-server -n &lt;namespace&gt; --patch-file repo-server-patch.yaml
+      </code></pre>
+
+      <p>Then restart the repo server to activate the new configuration:</p>
+
+      <pre><code class="language-bash">
+kubectl rollout restart deployment argocd-repo-server -n &lt;namespace&gt;
+      </code></pre>
+      <p></p>
+
+      <h2>3. Verify Installation</h2>
+      <p>
+        Once the patch is applied, verify the new <code>kubehcl</code> containers and volumes:
+      </p>
+
+      <pre><code class="language-bash">
+kubectl get pods -n &lt;namespace&gt; -l app.kubernetes.io/name=argocd-repo-server
+kubectl describe pod -n &lt;namespace&gt; | grep kubehcl
+      </code></pre>
+
+      <p>
+        You should see both the <strong>download-tools</strong> init container and 
+        the <strong>kubehcl</strong> CMP sidecar container.
+      </p>
+      <p></p>
+
+      <h2>4. Application Example</h2>
+      <p>
+        With the plugin active, you can create an Argo CD Application that uses KubeHCL to
+        generate manifests directly from HCL files.
+      </p>
+
+      <pre><code class="language-yaml">
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubehcl-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/your-org/my-app-repo.git"
+    path: my-path
+    targetRevision: main
+    plugin:
+      name: kubehcl
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      </code></pre>
+      <p></p>
+
+      <h2>5. How It Works</h2>
+      <ul>
+        <li>Argo CD clones your Git repository inside the <code>repo-server</code> pod.</li>
+        <li>The <strong>KubeHCL plugin</strong> runs automatically in the cloned folder.</li>
+        <li>Any <code>.hcl</code> files in the repository are processed with the provided <code>values</code>.</li>
+        <li>The generated manifests are returned to Argo CD for deployment.</li>
+      </ul>
+      <p></p>
+
+      <h2>6. Inline Values Support</h2>
+      <p>
+        The <code>kubehcl_values</code> parameter allows passing YAML directly in the Application manifest.
+        These values are written to a temporary file (<code>/tmp/values.yaml</code>) and passed to 
+        <code>kubehcl template</code>.
+      </p>
+      <p></p>
+
+      <h3>Example</h3>
+      <pre><code class="language-yaml">
+parameters:
+  - name: kubehcl_values
+    value: |
+      replicas = 3
+      image = {
+        repository = nginx
+        tag = "1.24"
+      }
+      </code></pre>
+
+      <p>
+        This allows customizing environment-specific configurations without modifying your Git repository.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
