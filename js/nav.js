@@ -1,4 +1,4 @@
-fetch('./partials/nav.html')
+fetch('./partials/nav.html',{ cache: 'no-store' })
   .then(response => response.text())
   .then(data => {   
     document.getElementById('sidebar').innerHTML = data;
@@ -9,7 +9,7 @@ function includeHTML() {
   const elements = document.querySelectorAll("[w3-include-html]");
   elements.forEach(el => {
     const file = el.getAttribute("w3-include-html");
-    fetch(file)
+    fetch(file,{ cache: 'no-store' })
       .then(response => {
         if (!response.ok) throw new Error(`Could not load ${file}`);
         return response.text();
