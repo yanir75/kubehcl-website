@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>default_annotations Block | KubeHCL</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section">
+      <h1>default_annotations block</h1>
+
+      <p>
+        The <strong>default_annotations</strong> block defines annotations that are added to all resources
+        at the same level (module) of the configuration.
+      </p>
+
+      <p>
+        It contains only attribute names with string values.
+      </p>
+
+      <h3>Example</h3>
+      <pre><code class="language-hcl">
+default_annotations {
+  owner   = "team-a"
+  env     = "production"
+  version = "v1.0.0"
+}
+      </code></pre>
+    </section>
+  </main>
+</body>
+</html>

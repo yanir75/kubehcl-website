@@ -22,4 +22,3 @@ function includeHTML() {
       .catch(err => console.error(err));
   });
 }
-includeHTML();

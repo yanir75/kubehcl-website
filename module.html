@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>module Block | KubeHCL</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section">
+      <h1>module Block</h1>
+
+      <p>
+        The <strong>module</strong> block defines a reusable configuration.  
+        The <strong>source</strong> attribute is required and specifies the path to the module.
+      </p>
+
+      <ul>
+        <li><strong>source</strong> – path to the module. If it starts with <code>repo://</code>, it will search in the repository list; otherwise, it will be searched locally.</li>
+        <li><strong>for_each</strong> – a map or set of strings to create a module for each key. Access attributes with <code>each.key</code> or <code>each.value</code>.</li>
+        <li><strong>count</strong> – a positive number or zero. Access the index with <code>count.index</code>.</li>
+        <li><strong>depends_on</strong> – a list of dependencies containing only modules or resources.</li>
+      </ul>
+    <p></p>
+      <h3>Example</h3>
+      <pre><code class="language-hcl">
+module "test" {
+  source     = "./modules/starter"   # "repo://foo/bar" required attribute
+  foo        = ["service1", "service2"]
+  ports      = [80, 443]"
+}
+</code></pre>
+
+        <p>
+            To use external modules from a repository, first add the repository using the command:
+        </p>
+        <pre><code class="language-shell">kubehcl repo add kubehcl-repos https://raw.githubusercontent.com/yanir75/kubehcl-repos/main </code></pre>
+        <p>
+            Then, reference the module using the <code>repo://</code> prefix in the source attribute, like so:
+        </p>
+        <pre><code class="language-hcl">
+# external example 
+module "test" {
+  source     = "repo://kubehcl-repos/test # required attribute
+  version   = "v0.1.0"               # optional attribute to specify version
+}
+        </code></pre>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kube_resource Block | KubeHCL</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section">
+      <h1>kube_resource block</h1>
+
+      <p>
+        The <strong>kube_resource</strong> block defines a Kubernetes resource.  
+        Further examples can be seen in the <a href="/example/">example folder</a>.
+      </p>
+
+      <p>This block can contain the following optional attributes:</p>
+      <ul>
+        <li><strong>for_each</strong> – a map or set of strings to create a resource for each key. Access attributes with <code>each.key</code> or <code>each.value</code>.</li>
+        <li><strong>count</strong> – a positive number or zero. Access the index with <code>count.index</code>.</li>
+        <li><strong>depends_on</strong> – a list of dependencies containing only modules or resources.</li>
+      </ul>
+
+      <p>
+      </p>
+      <h3>Example</h3>
+      <pre><code class="language-hcl">
+kube_resource "namespace" {
+  apiVersion = "v1"
+  kind       = "Namespace"
+  metadata = {
+    name = "foo"
+    labels = { name = "bar" }
+  }
+}
+
+kube_resource "foo" {
+  for_each = {
+    "foo" = "bar",
+    "bar" = "foo"
+  }
+  apiVersion = "apps/v1"
+  kind       = "Deployment"
+  metadata = {
+    name = each.key
+    labels = { app = each.value }
+  }
+  spec = {
+    replicas = 2
+    selector = { matchLabels = { app = each.value } }
+    template = {
+      metadata = { labels = { app = each.value } }
+      spec = {
+        containers = [{
+          name  = each.value
+          image = "nginx:1.14.2"
+          ports = var.foo
+        }]
+      }
+    }
+  }
+  depends_on = [kube_resource.namespace]
+}
+      </code></pre>
+    </section>
+  </main>
+</body>
+</html>

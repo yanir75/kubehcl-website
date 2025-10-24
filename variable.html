@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>variable Block | KubeHCL</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section">
+      <h1>variable block</h1>
+
+      <p>
+        The <strong>variable</strong> block defines input variables that can be reused throughout your configuration.  
+        It contains three optional attributes:
+      </p>
+
+      <ul class="command-flags">
+        <li><strong>description</strong> – explanation of the variable usage (optional).</li>
+        <li><strong>type</strong> – constraint on the variable value, must match the type (optional).</li>
+        <li><strong>default</strong> – value which will be assigned if not defined elsewhere (optional).</li>
+      </ul>
+
+      <p>
+        Variables can be referenced in configuration files using the syntax <code>var.&lt;name&gt;</code>,  
+        for example: <code>var.foo</code>.
+      </p>
+
+      <h3>Example</h3>
+      <pre><code class="language-hcl">
+variable "replicas" {
+  description = "Number of replicas for the deployment"
+  type        = number
+  default     = 3
+}
+      </code></pre>
+    </section>
+  </main>
+</body>
+</html>

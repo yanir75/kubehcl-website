@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>backend_storage Block | KubeHCL</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section">
+      <h1>backend_storage block</h1>
+
+      <p>
+        The <strong>backend_storage</strong> block defines where the state of your configuration is stored.
+        Valid options are:
+      </p>
+
+      <ul>
+        <li><strong>stateless</strong> – applies configuration to all resources in the files, even those not managed by kubehcl.</li>
+        <li><strong>kube_secret</strong> – stores the state as a Kubernetes Secret (default option).</li>
+      </ul>
+
+      <p>
+        This block is optional. If not defined, <code>kube_secret</code> will be used as the default backend.
+      </p>
+
+      <h3>Example</h3>
+      <pre><code class="language-hcl">
+backend_storage {
+    kube_secret {}
+}
+      </code></pre>
+    </section>
+  </main>
+</body>
+</html>

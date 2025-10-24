@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>locals Block | KubeHCL</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
+
+  <main class="content">
+    <section class="section">
+      <h1>locals block</h1>
+
+      <p>
+        The <strong>locals</strong> block defines local values that can be used throughout your configuration.
+        It contains attribute names and their assigned values.
+      </p>
+
+      <p>
+        Local values can be referenced in configuration files using the syntax 
+        <code>local.&lt;name&gt;</code>, for example: <code>local.foo</code>.
+      </p>
+
+      <p>
+        Variables defined in <strong>variable</strong> blocks can also be used within <strong>locals</strong>.
+      </p>
+
+      <h3>Example</h3>
+      <pre><code class="language-hcl">
+variable "namespace" {
+  default = "default"
+}
+
+locals {
+  app_name  = "my-app"
+  app_label = "${var.namespace}-label"
+}
+      </code></pre>
+    </section>
+  </main>
+</body>
+</html>
