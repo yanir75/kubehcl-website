@@ -9,19 +9,30 @@
 <body>
   <div class="glow"></div>
 
-
-  <nav class="sidebar" id="sidebar">
-  </nav>
-    <script src="./js/nav.js"> </script>
+  <nav class="sidebar" id="sidebar"></nav>
+  <script src="./js/nav.js"></script>
 
   <main class="content">
     <section class="section">
       <h2>Usage</h2>
-      <p>Define your Kubernetes resources in HCL and let KubeHCL deploy it:</p>
+      <p>KubeHCL lets you define Kubernetes resources using HCL instead of YAML. Then, run <code>kubehcl apply</code> to deploy them.</p>
+
+      <h3>YAML Example</h3>
+      <pre><code>
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: foo
+  labels:
+    name: bar
+      </code></pre>
+
+      <h3>Equivalent HCL (KubeHCL)</h3>
       <pre><code>
 kube_resource "foo" {
   apiVersion = "v1"
   kind       = "Namespace"
+
   metadata = {
     name = "foo"
     labels = {
@@ -30,6 +41,21 @@ kube_resource "foo" {
   }
 }
       </code></pre>
+      <p></p>
+      <h3>How to deploy your configuration</h3>
+      <p>1️⃣ Save your HCL file, for example <code>namespace.hcl</code></p>
+
+      <p>2️⃣ Apply it with KubeHCL:</p>
+      <pre><code>
+kubehcl install &lt;name&gt; &lt;folder&gt;
+      </code></pre>
+
+      <p>4️⃣ View the generated YAML:</p>
+      <pre><code>
+kubehcl template &lt;folder&gt;
+      </code></pre>
+
+      <p>You write HCL → KubeHCL converts it to YAML → Kubernetes applies it 🚀</p>
     </section>
 
     <footer>

@@ -13,9 +13,10 @@ body {
   font-family: "Inter", "Segoe UI", sans-serif;
   background: radial-gradient(circle at 20% 20%, #0a0f2c, #050714 80%);
   color: white;
-  display: flex;
   overflow-x: hidden;
+  display: block; /* ✅ Changed from flex to block */
 }
+
 
     .commands-list {
       list-style-type: none;
@@ -317,35 +318,29 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .sidebar {
-    position: static;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    justify-content: center;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .sidebar-header {
-    display: none;
-  }
-
-  .nav-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-
-  .content {
-    margin-left: 0;
-    width: 100%;
+  h1 {
+    font-size: 1.8rem; /* Smaller but readable */
   }
 
   .section, .about {
-    padding: 60px 20px;
+    padding: 40px 18px;
+  }
+
+  pre {
+    font-size: 0.85rem; /* Code fits better */
+    white-space: pre-wrap; /* Wrap code lines */
+    word-break: break-word;
+  }
+
+  .btn {
+    padding: 10px 24px;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 6px 10px;
   }
 }
+
 
 
