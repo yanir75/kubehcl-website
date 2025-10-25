@@ -176,8 +176,37 @@ spec:
       prune: true
       selfHeal: true
       </code></pre>
+
+      <p>
+        Wokring example
+      </p>
+
+      <pre><code class="language-yaml">
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubehcl-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/yanir75/kubehcl-repos.git"
+    path: example
+    targetRevision: main
+    plugin:
+      name: kubehcl
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      </code></pre>
+      <p></p>
       <p></p>
 
+  
       <h2>5. How It Works</h2>
       <ul>
         <li>Argo CD clones your Git repository inside the <code>repo-server</code> pod.</li>
